@@ -1,0 +1,27 @@
+---
+title: "Fluxo"
+summary: "Dashboard interno para gestão de operações logísticas em tempo real."
+client: "Operadora logística (NDA)"
+role: "Web app + integrações"
+year: 2025
+stack: ["Next.js", "Postgres", "Tailwind", "tRPC"]
+accent: "#FF4A1C"
+locale: "pt"
+demo: true
+featured: true
+order: 2
+---
+
+## O desafio
+
+A equipa de operações gastava 3-4 horas por dia a consolidar dados de 5 sistemas diferentes em Excel. Pediram-nos uma "vista única" — algo que mostrasse tudo de relance e permitisse agir.
+
+## A solução
+
+**Web app** com sincronização em tempo real via Postgres LISTEN/NOTIFY. Integração direta com os 5 sistemas legados via APIs e scrapers controlados. Permissões por papel para que cada equipa veja apenas o relevante.
+
+## Resultado
+
+- Horas de consolidação manual reduzidas em **85%**
+- Tempo médio até identificar um atraso passou de 40min para 4min
+- Adoção interna de 100% em 3 semanas

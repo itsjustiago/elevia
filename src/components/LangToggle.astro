@@ -1,0 +1,18 @@
+---
+import { getLangFromUrl, switchLangPath, useTranslations } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const other = lang === 'pt' ? 'en' : 'pt';
+const targetPath = switchLangPath(Astro.url, other);
+---
+<a
+  href={targetPath}
+  aria-label={t('lang.toggle')}
+  class="h-9 px-3 inline-flex items-center gap-1.5 rounded-full border border-fg/15 hover:border-fg/40 transition-colors text-xs font-mono tracking-wider"
+>
+  <span class="opacity-100">{languages[lang]}</span>
+  <span class="opacity-30">/</span>
+  <span class="opacity-50">{languages[other]}</span>
+</a>

@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const services = [
+  { num: '01', icon: 'lucide:globe', titleKey: 'services.web.title', descKey: 'services.web.desc' },
+  { num: '02', icon: 'lucide:layout-dashboard', titleKey: 'services.webapp.title', descKey: 'services.webapp.desc' },
+  { num: '03', icon: 'lucide:smartphone', titleKey: 'services.mobile.title', descKey: 'services.mobile.desc' },
+  { num: '04', icon: 'lucide:server', titleKey: 'services.it.title', descKey: 'services.it.desc' },
+] as const;
+---
+<section id="services" class="py-24 md:py-36 scroll-mt-20">
+  <div class="container-x">
+    <header class="flex items-end justify-between flex-wrap gap-6 mb-16 md:mb-24">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-4 flex items-center gap-3">
+          <span class="inline-block w-8 h-px bg-fg/30"></span>
+          {t('services.eyebrow')}
+        </p>
+        <h2 class="font-display font-extrabold" style="font-size: var(--text-display-lg);">{t('services.title')}</h2>
+      </div>
+    </header>
+
+    <ul class="grid md:grid-cols-2 gap-px bg-fg/10 border border-fg/10">
+      {services.map((s) => (
+        <li class="service-card bg-bg p-8 md:p-12 transition-colors duration-300 hover:bg-surface group">
+          <div class="flex items-start justify-between mb-10 md:mb-16">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-muted">{s.num}</span>
+            <div class="w-12 h-12 rounded-full border border-fg/15 grid place-items-center group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-colors">
+              <Icon name={s.icon} class="w-5 h-5" />
+            </div>
+          </div>
+          <h3 class="font-display font-bold mb-4" style="font-size: clamp(1.75rem, 3vw, 2.5rem);">
+            {t(s.titleKey as any)}
+          </h3>
+          <p class="text-muted text-base md:text-lg leading-relaxed max-w-md">
+            {t(s.descKey as any)}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const steps = [
+  { titleKey: 'process.step1.title', descKey: 'process.step1.desc' },
+  { titleKey: 'process.step2.title', descKey: 'process.step2.desc' },
+  { titleKey: 'process.step3.title', descKey: 'process.step3.desc' },
+  { titleKey: 'process.step4.title', descKey: 'process.step4.desc' },
+] as const;
+---
+<section id="process" class="py-24 md:py-36 scroll-mt-20 bg-surface/30">
+  <div class="container-x">
+    <header class="mb-16 md:mb-24">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-4 flex items-center gap-3">
+        <span class="inline-block w-8 h-px bg-fg/30"></span>
+        {t('process.eyebrow')}
+      </p>
+      <h2 class="font-display font-extrabold" style="font-size: var(--text-display-lg);">{t('process.title')}</h2>
+    </header>
+
+    <ol class="grid md:grid-cols-2 gap-12 md:gap-16">
+      {steps.map((s, i) => (
+        <li class="flex gap-6">
+          <div class="shrink-0 font-display font-extrabold text-accent text-5xl leading-none w-16">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-2xl md:text-3xl mb-3 tracking-tight">{t(s.titleKey as any)}</h3>
+            <p class="text-muted text-base md:text-lg leading-relaxed max-w-md">{t(s.descKey as any)}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

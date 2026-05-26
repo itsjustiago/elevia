@@ -1,0 +1,68 @@
+---
+import { getLangFromUrl, useTranslations, getLocalePath } from '../i18n/utils';
+import LangToggle from './LangToggle.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const links = [
+  { href: '#services', label: t('nav.services') },
+  { href: '#projects', label: t('nav.projects') },
+  { href: '#about', label: t('nav.about') },
+  { href: '#contact', label: t('nav.contact') },
+];
+
+const home = getLocalePath(lang, '/');
+---
+<header class="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-fg/[0.06]">
+  <div class="container-x flex items-center justify-between h-16 md:h-20">
+    <a href={home} class="flex items-center gap-2 font-display font-extrabold text-xl md:text-2xl tracking-tight">
+      <span class="inline-block w-2.5 h-2.5 bg-accent rounded-full"></span>
+      <span>Elevia</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm">
+      {links.map((l) => (
+        <a href={l.href} class="link-underline">{l.label}</a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <LangToggle />
+      <a href="#contact" class="hidden md:inline-flex btn btn-primary text-sm py-2.5 px-5">
+        {t('nav.cta')}
+      </a>
+      <button
+        id="mobile-menu-btn"
+        aria-label="Menu"
+        class="md:hidden p-2 -mr-2"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="3" y1="7" x2="21" y2="7" />
+          <line x1="3" y1="17" x2="21" y2="17" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden hidden border-t border-fg/[0.06] bg-bg">
+    <nav class="container-x py-6 flex flex-col gap-5 text-lg">
+      {links.map((l) => (
+        <a href={l.href} class="mobile-link">{l.label}</a>
+      ))}
+      <a href="#contact" class="btn btn-primary self-start mt-2">{t('nav.cta')}</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const setup = () => {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    const close = () => menu.classList.add('hidden');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  };
+  setup();
+  document.addEventListener('astro:after-swap', setup);
+</script>
