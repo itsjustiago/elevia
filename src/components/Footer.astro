@@ -1,7 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LangToggle from './LangToggle.astro';
-import ThemeToggle from './ThemeToggle.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -28,7 +27,6 @@ const year = new Date().getFullYear();
       <p>© {year} Elevia. {t('footer.rights')}</p>
       <div class="flex items-center gap-3">
         <p class="hidden md:block">{t('footer.builtWith')}</p>
-        <ThemeToggle />
         <LangToggle />
       </div>
     </div>
