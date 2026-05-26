@@ -2,12 +2,13 @@
 
 @theme {
   --color-bg: #f4f4f4;
-  --color-fg: #0a0a0a;
-  --color-muted: #6b6b6b;
-  --color-line: #1a1a1a;
+  --color-fg: #141414;
+  --color-muted: #7a7a7a;
+  --color-line: #141414;
   --color-surface: #ffffff;
-  --color-accent: #ff4a1c;
-  --color-accent-fg: #ffffff;
+  /* Accent neutralised — colour returns later by changing this single token */
+  --color-accent: #141414;
+  --color-accent-fg: #f4f4f4;
 
   --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
