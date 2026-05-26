@@ -9,30 +9,26 @@ const t = useTranslations(lang);
 const all = await getCollection('projects', ({ data }) => data.locale === lang);
 const projects = all.sort((a, b) => a.data.order - b.data.order);
 ---
-<section id="projects" class="py-24 md:py-36 scroll-mt-20">
+<section id="projects" class="py-24 md:py-32 scroll-mt-12">
   <div class="container-x">
-    <header class="flex items-end justify-between flex-wrap gap-6 mb-16 md:mb-24">
-      <div>
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-4 flex items-center gap-3">
-          <span class="inline-block w-8 h-px bg-fg/30"></span>
-          {t('projects.eyebrow')}
-        </p>
-        <h2 class="font-display font-extrabold" style="font-size: var(--text-display-lg);">{t('projects.title')}</h2>
-      </div>
-    </header>
+    <h2 class="font-display font-bold mb-12" style="font-size: var(--text-display-lg);">
+      {t('projects.title')}
+    </h2>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-      {projects.map((p, i) => (
-        <ProjectCard
-          slug={p.id}
-          title={p.data.title}
-          summary={p.data.summary}
-          year={p.data.year}
-          stack={p.data.stack}
-          demo={p.data.demo}
-          index={i}
-        />
-      ))}
+    <div>
+      {projects.map((p) => {
+        const cleanSlug = p.id.replace(/^(pt|en)-/, '');
+        const href = lang === 'pt' ? `/projetos/${cleanSlug}` : `/en/projects/${cleanSlug}`;
+        return (
+          <ProjectCard
+            slug={p.id}
+            title={p.data.title}
+            summary={p.data.summary}
+            year={p.data.year}
+            href={href}
+          />
+        );
+      })}
     </div>
   </div>
 </section>

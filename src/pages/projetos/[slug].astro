@@ -14,57 +14,46 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const t = useTranslations('pt');
-const { title, summary, year, role, stack, client, url, demo } = entry.data;
+const { title, summary, year, role, stack, client, url } = entry.data;
 ---
 <Base title={title} description={summary}>
-  <article class="pt-12 md:pt-24 pb-24">
+  <article class="pt-24 md:pt-32 pb-24">
     <div class="container-x">
-      <a href="/#projects" class="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider text-muted hover:text-fg transition-colors mb-10 md:mb-16">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        {t('projects.back')}
-      </a>
+      <a href="/#projects" class="text-sm text-muted mb-12 inline-block">← {t('projects.back')}</a>
 
-      <header class="mb-16 md:mb-24">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-6 flex items-center gap-3">
-          <span class="inline-block w-8 h-px bg-fg/30"></span>
-          {t('nav.projects')} · {year}
-          {demo && <span class="px-2 py-0.5 rounded-full bg-accent/15 text-accent ml-1">{t('projects.demo')}</span>}
-        </p>
-        <h1 class="font-display font-extrabold mb-8" style="font-size: var(--text-display-lg); line-height: 0.95;">{title}</h1>
-        <p class="text-xl md:text-2xl text-muted max-w-3xl leading-relaxed">{summary}</p>
+      <header class="mb-16">
+        <h1 class="font-display font-bold mb-6" style="font-size: var(--text-display-lg);">{title}</h1>
+        <p class="text-lg md:text-xl text-muted max-w-2xl">{summary}</p>
       </header>
 
-      <dl class="grid sm:grid-cols-2 md:grid-cols-4 gap-px bg-fg/10 border border-fg/10 mb-16 md:mb-24">
+      <dl class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-16 pb-12 border-b border-fg/10">
         {client && (
-          <div class="bg-bg p-6">
-            <dt class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted mb-2">{t('projects.client')}</dt>
-            <dd class="font-display font-bold text-base">{client}</dd>
+          <div>
+            <dt class="text-xs text-muted mb-1">{t('projects.client')}</dt>
+            <dd>{client}</dd>
           </div>
         )}
-        <div class="bg-bg p-6">
-          <dt class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted mb-2">{t('projects.role')}</dt>
-          <dd class="font-display font-bold text-base">{role}</dd>
+        <div>
+          <dt class="text-xs text-muted mb-1">{t('projects.role')}</dt>
+          <dd>{role}</dd>
         </div>
-        <div class="bg-bg p-6">
-          <dt class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted mb-2">{t('projects.year')}</dt>
-          <dd class="font-display font-bold text-base">{year}</dd>
+        <div>
+          <dt class="text-xs text-muted mb-1">{t('projects.year')}</dt>
+          <dd>{year}</dd>
         </div>
-        <div class="bg-bg p-6">
-          <dt class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted mb-2">{t('projects.stack')}</dt>
-          <dd class="font-display font-bold text-base">{stack.join(' · ')}</dd>
+        <div>
+          <dt class="text-xs text-muted mb-1">{t('projects.stack')}</dt>
+          <dd>{stack.join(', ')}</dd>
         </div>
       </dl>
 
-      <div class="prose-elevia max-w-3xl mx-auto">
+      <div class="prose-elevia max-w-2xl">
         <Content />
       </div>
 
       {url && (
-        <div class="mt-16 text-center">
-          <a href={url} target="_blank" rel="noopener" class="btn btn-primary">
-            {t('projects.viewCase')}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
+        <div class="mt-12">
+          <a href={url} target="_blank" rel="noopener" class="btn btn-primary">{t('projects.viewCase')}</a>
         </div>
       )}
     </div>
@@ -72,12 +61,10 @@ const { title, summary, year, role, stack, client, url, demo } = entry.data;
 </Base>
 
 <style is:global>
-  .prose-elevia { font-size: 1.125rem; line-height: 1.75; }
-  .prose-elevia h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 3rem; margin-bottom: 1rem; }
-  .prose-elevia h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
-  .prose-elevia p { margin-bottom: 1.25rem; color: var(--fg); }
-  .prose-elevia strong { color: var(--color-accent); font-weight: 700; }
-  .prose-elevia ul { list-style: none; padding-left: 0; }
-  .prose-elevia ul li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
-  .prose-elevia ul li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 0.4rem; height: 0.4rem; background: var(--color-accent); border-radius: 2px; }
+  .prose-elevia { font-size: 1.0625rem; line-height: 1.7; }
+  .prose-elevia h2 { font-size: 1.5rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.75rem; }
+  .prose-elevia h3 { font-size: 1.125rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; }
+  .prose-elevia p { margin-bottom: 1rem; }
+  .prose-elevia ul { list-style: disc; padding-left: 1.25rem; }
+  .prose-elevia ul li { margin-bottom: 0.25rem; }
 </style>

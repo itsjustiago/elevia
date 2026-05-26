@@ -1,64 +1,18 @@
 ---
-import { getLocalePath, getLangFromUrl, useTranslations } from '../i18n/utils';
-
 interface Props {
   slug: string;
   title: string;
   summary: string;
   year: string | number;
-  stack: string[];
-  demo?: boolean;
-  index: number;
+  href: string;
 }
 
-const { slug, title, summary, year, stack, demo, index } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-// Slugs are prefixed with locale; strip for URL
-const cleanSlug = slug.replace(/^(pt|en)-/, '');
-const projectPath = lang === 'pt' ? `/projetos/${cleanSlug}` : `/en/projects/${cleanSlug}`;
-const href = getLocalePath(lang, '').replace(/\/$/, '') + (lang === 'pt' ? '' : '') + (lang === 'pt' ? `/projetos/${cleanSlug}` : `/en/projects/${cleanSlug}`);
-
-const num = String(index + 1).padStart(2, '0');
+const { title, summary, year, href } = Astro.props;
 ---
-<a href={lang === 'pt' ? `/projetos/${cleanSlug}` : `/en/projects/${cleanSlug}`} class="project-card group block">
-  <div class="aspect-[4/3] bg-surface border border-fg/10 rounded-2xl overflow-hidden relative">
-    <div class="absolute inset-0 grid place-items-center">
-      <div class="text-center px-8">
-        <div class="font-mono text-xs uppercase tracking-[0.25em] text-muted mb-4">{num}</div>
-        <div class="font-display font-extrabold text-4xl md:text-5xl tracking-tight">{title}</div>
-        {demo && (
-          <span class="inline-block mt-4 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-mono uppercase tracking-wider">
-            {t('projects.demo')}
-          </span>
-        )}
-      </div>
-    </div>
-    <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-fg text-bg grid place-items-center transition-transform group-hover:scale-110">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M7 17L17 7M9 7h8v8"/>
-      </svg>
-    </div>
+<a href={href} class="block py-8 border-t border-fg/10 last:border-b">
+  <div class="flex items-baseline justify-between gap-6">
+    <h3 class="font-display font-semibold text-2xl md:text-3xl">{title}</h3>
+    <span class="text-sm text-muted shrink-0">{year}</span>
   </div>
-  <div class="mt-5 flex items-start justify-between gap-4">
-    <div class="min-w-0">
-      <h3 class="font-display font-bold text-xl md:text-2xl tracking-tight truncate">{title}</h3>
-      <p class="text-muted text-sm mt-1 line-clamp-2">{summary}</p>
-    </div>
-    <span class="font-mono text-xs uppercase tracking-wider text-muted shrink-0 mt-1">{year}</span>
-  </div>
-  <div class="mt-3 flex flex-wrap gap-1.5">
-    {stack.slice(0, 4).map((s) => (
-      <span class="text-[0.7rem] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-fg/15 text-muted">{s}</span>
-    ))}
-  </div>
+  <p class="mt-2 text-muted max-w-2xl">{summary}</p>
 </a>
-
-<style>
-  .project-card {
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .project-card:hover {
-    transform: translateY(-4px);
-  }
-</style>

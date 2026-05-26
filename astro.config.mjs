@@ -2,14 +2,13 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
-import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://itsjustiago.github.io',
   base: '/elevia',
   trailingSlash: 'ignore',
-  integrations: [mdx(), icon()],
+  integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],
   },

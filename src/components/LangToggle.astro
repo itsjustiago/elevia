@@ -7,12 +7,7 @@ const t = useTranslations(lang);
 const other = lang === 'pt' ? 'en' : 'pt';
 const targetPath = switchLangPath(Astro.url, other);
 ---
-<a
-  href={targetPath}
-  aria-label={t('lang.toggle')}
-  class="h-9 px-3 inline-flex items-center gap-1.5 rounded-full border border-fg/15 hover:border-fg/40 transition-colors text-xs font-mono tracking-wider"
->
-  <span class="opacity-100">{languages[lang]}</span>
-  <span class="opacity-30">/</span>
-  <span class="opacity-50">{languages[other]}</span>
+<a href={targetPath} aria-label={t('lang.toggle')} class="text-sm">
+  <span>{languages[lang]}</span>
+  <span class="text-muted"> / {languages[other]}</span>
 </a>

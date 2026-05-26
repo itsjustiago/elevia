@@ -6,29 +6,9 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
-<footer class="border-t border-fg/[0.08] mt-32">
-  <div class="container-x py-16 md:py-20 grid md:grid-cols-3 gap-10">
-    <div class="md:col-span-2">
-      <div class="flex items-center gap-2 font-display font-extrabold text-2xl">
-        <span class="inline-block w-2.5 h-2.5 bg-accent rounded-full"></span>
-        <span>Elevia</span>
-      </div>
-      <p class="mt-4 text-muted max-w-md">{t('footer.tagline')}</p>
-    </div>
-    <div class="flex flex-col gap-3 text-sm">
-      <a href="#services" class="link-underline self-start">{t('nav.services')}</a>
-      <a href="#projects" class="link-underline self-start">{t('nav.projects')}</a>
-      <a href="#about" class="link-underline self-start">{t('nav.about')}</a>
-      <a href="#contact" class="link-underline self-start">{t('nav.contact')}</a>
-    </div>
-  </div>
-  <div class="border-t border-fg/[0.06]">
-    <div class="container-x py-6 flex flex-col md:flex-row gap-4 md:items-center md:justify-between text-xs text-muted font-mono uppercase tracking-wider">
-      <p>© {year} Elevia. {t('footer.rights')}</p>
-      <div class="flex items-center gap-3">
-        <p class="hidden md:block">{t('footer.builtWith')}</p>
-        <LangToggle />
-      </div>
-    </div>
+<footer class="border-t border-fg/10 mt-24">
+  <div class="container-x py-8 flex items-center justify-between text-sm text-muted">
+    <p>© {year} Elevia</p>
+    <LangToggle />
   </div>
 </footer>
